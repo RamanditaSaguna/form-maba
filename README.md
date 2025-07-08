@@ -1,6 +1,5 @@
 # Coding Bootcamp Student Enrollment System
 
-![Coding Bo### 2. Setup Database SQLite
 
 **Database sudah otomatis terbuat!** SQLite database akan dibuat secara otomatis saat aplikasi pertama kali dijalankan.
 
@@ -9,7 +8,7 @@ Database file: `coding_bootcamp.db` (akan dibuat di root folder)
 **Sample data akan otomatis diisi dengan:**
 - Ahmad Rizki Pratama (Web Development)
 - Siti Nurhaliza (UI/UX Design) 
-- Budi Santoso (Data Science)ps://img.shields.io/badge/Coding-Bootcamp-blue.svg)
+- Budi Santoso (Data Science)
 ![Python](https://img.shields.io/badge/Python-3.8+-green.svg)
 ![Flask](https://img.shields.io/badge/Flask-2.3.3-red.svg)
 ![SQLite](https://img.shields.io/badge/SQLite-3.0+-orange.svg)
@@ -473,3 +472,8 @@ close_connection(conn, cursor)
 - XSS Protection (Flask Auto-escaping)
 - CSRF Protection (Flash Messages)
 - Input Validation (Required Fields)
+
+![photo1](base.png)
+![photo2](input.png)
+![photo3](success.png)
+![photo4](contact.png)
