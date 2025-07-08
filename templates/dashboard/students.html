@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Siswa - Coding Bootcamp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dashboard-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .stats-summary {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #4a5568;
+        }
+
+        .main-content {
+            padding: 40px 0;
+        }
+
+        .table-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .table-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            background: white;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            padding: 15px 12px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .data-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .data-table tr:nth-child(even) {
+            background: rgba(102, 126, 234, 0.02);
+        }
+
+        .data-table tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+            transition: background 0.3s ease;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-new {
+            background: rgba(72, 187, 120, 0.1);
+            color: #38a169;
+            border: 1px solid rgba(72, 187, 120, 0.3);
+        }
+
+        .experience-badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .exp-pemula {
+            background: rgba(255, 159, 67, 0.1);
+            color: #ff9f43;
+        }
+
+        .exp-dasar {
+            background: rgba(45, 152, 218, 0.1);
+            color: #2d98da;
+        }
+
+        .exp-menengah {
+            background: rgba(85, 230, 193, 0.1);
+            color: #55e6c1;
+        }
+
+        .exp-mahir {
+            background: rgba(129, 236, 236, 0.1);
+            color: #81ecec;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #4a5568;
+        }
+
+        .no-data-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #4a5568;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .back-btn:hover {
+            background: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .stats-summary {
+                gap: 20px;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            
+            .filter-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .data-table {
+                font-size: 0.8rem;
+            }
+            
+            .data-table th,
+            .data-table td {
+                padding: 10px 8px;
+            }
+        }
+
+        .tech-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            background-image: 
+                radial-gradient(circle at 25% 25%, #ffffff 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, #ffffff 2px, transparent 2px);
+            background-size: 50px 50px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="tech-pattern"></div>
+    
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="dashboard-title">Dashboard Siswa Coding Bootcamp</h1>
+                <div class="stats-summary">
+                    <div class="stat-item">
+                        <div class="stat-number">{{ students_data|length }}</div>
+                        <div class="stat-label">Total Siswa</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Program Track</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="container">
+            <a href="{{ url_for('home') }}" class="back-btn">
+                ← Kembali ke Form Pendaftaran
+            </a>
+            
+            <div class="table-container">
+                <div class="table-header">
+                    <h2 class="table-title">Data Pendaftar</h2>
+                    <div class="filter-controls">
+                        <select class="filter-select">
+                            <option value="">Semua Track</option>
+                            <option value="web">Web Development</option>
+                            <option value="mobile">Mobile Development</option>
+                            <option value="data">Data Science</option>
+                            <option value="uiux">UI/UX Design</option>
+                            <option value="devops">DevOps Engineering</option>
+                        </select>
+                        <select class="filter-select">
+                            <option value="">Semua Level</option>
+                            <option value="pemula">Pemula</option>
+                            <option value="dasar">Dasar</option>
+                            <option value="menengah">Menengah</option>
+                            <option value="mahir">Mahir</option>
+                        </select>
+                    </div>
+                </div>
+
+                {% if students_data %}
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Tanggal Daftar</th>
+                            <th>Nama Lengkap</th>
+                            <th>Email</th>
+                            <th>No. Telepon</th>
+                            <th>Track Kursus</th>
+                            <th>Pendidikan</th>
+                            <th>Level Pengalaman</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students_data %}
+                        <tr>
+                            <td>{{ student.enrollment_date.strftime('%d/%m/%Y %H:%M') if student.enrollment_date else '-' }}</td>
+                            <td><strong>{{ student.full_name }}</strong></td>
+                            <td>{{ student.email_address }}</td>
+                            <td>{{ student.phone_number }}</td>
+                            <td>{{ student.course_track or '-' }}</td>
+                            <td>{{ student.education_level or '-' }}</td>
+                            <td>
+                                {% if student.experience_level %}
+                                    {% set exp_class = 'exp-' + student.experience_level.lower().split('(')[0].strip().replace(' ', '-') %}
+                                    <span class="experience-badge {{ exp_class }}">{{ student.experience_level }}</span>
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <span class="status-badge status-new">Pendaftar Baru</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <div class="no-data">
+                    <div class="no-data-icon">📊</div>
+                    <h3>Belum Ada Data Siswa</h3>
+                    <p>Belum ada siswa yang mendaftar ke bootcamp.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
